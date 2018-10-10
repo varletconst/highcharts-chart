@@ -1,6 +1,6 @@
 <script>/*======================================================================|
     Highcharts-Chart Made By Apoorv Verma [AP] for Polymer 1.0
-    
+
     Repo:     https://github.com/avdaredevil/highcharts-chart
     Website:  https://avdaredevil.github.io/highcharts-chart/
     LinkedIn: https://www.linkedin.com/in/apoorvverma
@@ -23,6 +23,7 @@
             }
             static get properties() {return {
                 type: {type: String, observer: "_updateType"},
+                lang: {type: String, observer: "_langUpdate"},
                 title: {type: String, value: "", observer: "_titleUpdate"},
                 subtitle: {type: String, observer: "_subtitleUpdate"},
                 colorByPoint: {type: Boolean, value: false, reflectToAttribute:true, observer: "_cbpUpdate"},
@@ -49,6 +50,17 @@
                 _chart: {type: Object, readOnly: true},
                 __microTaskDelaySetData: {type: Number, value: 25}
             }}
+
+            _langUpdate(lang) {
+                const downloadSVG = lang === 'fr' ? 'Télécharger le SVG' : 'Download SVG';
+                const downloadPNG = lang === 'fr' ? 'Télécharger le PNG' : 'Download PNG';
+                const downloadPDF = lang === 'fr' ? 'Télécharger le PDF' : 'Download PDF';
+                const downloadJPEG = lang === 'fr' ? 'Télécharger le JPEG' : 'Download JPEG';
+                const printChart = lang === 'fr' ? 'Imprimer le graphique' : 'Print chart';
+
+                const chartLang = this._chart.options.lang;
+                this._chart.options.lang = Object.assign({}, chartLang, { downloadSVG, downloadPNG, downloadPDF, downloadJPEG, printChart });
+            }
 
             __createChart(namespace) {
                 var xAxis = $.extend(this.vsTime?{type: 'datetime',tickPixelInterval: 150}:{},this.xAxis, {title: {text: this._getAxisLabel('X')}});
@@ -173,7 +185,7 @@
                 selected: {type: Boolean, value: false, readOnly: true, notify: true, reflectToAttribute: true},
                 selectedPoints: {type: Array, readOnly: true, notify: true}
             }}
-            
+
             _vsTimeUpdate(a) {if(!this._chart || typeof a == "undefined"){return};this.destroy();this.ready()}
             _checkSelected() {if(!this._chart){return};var points = this._chart.getSelectedPoints();this._setSelected(!!points.length);this._setSelectedPoints(points)}
         }
