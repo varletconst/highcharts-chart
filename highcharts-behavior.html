@@ -52,14 +52,15 @@
             }}
 
             _langUpdate(lang) {
-                const downloadSVG = lang === 'fr' ? 'Télécharger le SVG' : 'Download SVG';
-                const downloadPNG = lang === 'fr' ? 'Télécharger le PNG' : 'Download PNG';
-                const downloadPDF = lang === 'fr' ? 'Télécharger le PDF' : 'Download PDF';
-                const downloadJPEG = lang === 'fr' ? 'Télécharger le JPEG' : 'Download JPEG';
-                const printChart = lang === 'fr' ? 'Imprimer le graphique' : 'Print chart';
-
                 const chartLang = this._chart.options.lang;
-                this._chart.options.lang = Object.assign({}, chartLang, { downloadSVG, downloadPNG, downloadPDF, downloadJPEG, printChart });
+                this._chart.options.lang = Object.assign({}, chartLang, {
+                    downloadSVG: lang === 'fr' ? 'Télécharger le SVG' : 'Download SVG',
+                    downloadPNG: lang === 'fr' ? 'Télécharger le PNG' : 'Download PNG',
+                    downloadPDF: lang === 'fr' ? 'Télécharger le PDF' : 'Download PDF',
+                    downloadJPEG: lang === 'fr' ? 'Télécharger le JPEG' : 'Download JPEG',
+                    printChart: lang === 'fr' ? 'Imprimer le graphique' : 'Print chart',
+                    drillUpTex: lang === 'fr' ? 'Retour' : 'Back'
+                });
             }
 
             __createChart(namespace) {
